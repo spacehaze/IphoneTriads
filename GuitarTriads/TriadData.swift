@@ -112,7 +112,7 @@ struct TriadDataProvider {
 
         // Semitone intervals for each note relative to root
         let intervals: [String: Int] = [
-            "R": 0, "3": 4, "b3": 3, "5": 7, "b5": 6
+            "1": 0, "3": 4, "b3": 3, "5": 7, "b5": 6
         ]
 
         let labels = noteLabels(quality: quality, inversion: inversion)
