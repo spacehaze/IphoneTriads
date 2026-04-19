@@ -95,6 +95,10 @@ struct FretboardView: View {
                     ZStack {
                         Circle()
                             .fill(isRoot ? Color(red: 1.0, green: 0.0, blue: 0.0) : Color.black)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.black, lineWidth: isRoot ? 3 : 0)
+                            )
                             .frame(width: dotRadius * 2, height: dotRadius * 2)
 
                         Text(pos.label)
