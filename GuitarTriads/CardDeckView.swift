@@ -121,12 +121,13 @@ struct CardDeckView: View {
         let currentSet = voicings[currentIndex].stringSet
         let currentSetVoicings = voicings.filter { $0.stringSet.id == currentSet.id }
         let indexInSet = currentSetVoicings.firstIndex(where: { $0.id == voicings[currentIndex].id }) ?? 0
+        let labels = Inversion.allCases.map { $0.shortLabel }
 
-        return HStack(spacing: 8) {
+        return HStack(spacing: 16) {
             ForEach(0..<currentSetVoicings.count, id: \.self) { i in
-                Circle()
-                    .fill(i == indexInSet ? quality.color : quality.color.opacity(0.3))
-                    .frame(width: i == indexInSet ? 10 : 7, height: i == indexInSet ? 10 : 7)
+                Text(labels[i])
+                    .font(.system(size: 18, weight: i == indexInSet ? .bold : .medium))
+                    .foregroundColor(i == indexInSet ? quality.color : quality.color.opacity(0.35))
             }
         }
     }
