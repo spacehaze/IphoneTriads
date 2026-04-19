@@ -35,20 +35,16 @@ struct CardView: View {
                 .frame(width: cardWidth * 0.82, height: cardHeight * 0.58)
 
             // Top-left inversion label
-            Text(voicing.inversion.shortLabel)
-                .font(.system(size: 36, weight: .bold))
-                .foregroundColor(.black.opacity(0.7))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.leading, 24)
-                .padding(.top, 20)
-
-            // Bottom-right quality letter
-            Text(voicing.quality.abbreviation.prefix(1).uppercased())
-                .font(.system(size: 36, weight: .bold))
-                .foregroundColor(.black.opacity(0.7))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                .padding(.trailing, 24)
-                .padding(.bottom, 24)
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(voicing.inversion.shortLabel)
+                    .font(.system(size: 36, weight: .bold))
+                Text(voicing.inversion.rawValue)
+                    .font(.system(size: 18, weight: .semibold))
+            }
+            .foregroundColor(.black.opacity(0.7))
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.leading, 24)
+            .padding(.top, 20)
         }
         .frame(width: cardWidth, height: cardHeight)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -69,12 +65,16 @@ struct CardView: View {
                 .frame(width: cardWidth * 0.50, height: cardHeight * 0.80)
 
             // Top-left inversion label
-            Text(voicing.inversion.shortLabel)
-                .font(.system(size: 32, weight: .bold))
-                .foregroundColor(.black.opacity(0.7))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.leading, 24)
-                .padding(.top, 20)
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(voicing.inversion.shortLabel)
+                    .font(.system(size: 32, weight: .bold))
+                Text(voicing.inversion.rawValue)
+                    .font(.system(size: 16, weight: .semibold))
+            }
+            .foregroundColor(.black.opacity(0.7))
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.leading, 24)
+            .padding(.top, 20)
 
             // Bottom-right quality letter
             Text(voicing.quality.abbreviation.prefix(1).uppercased())
