@@ -53,24 +53,6 @@ struct CardView: View {
                     .padding(.top, 12)
 
                 Spacer()
-
-                // Footer info
-                VStack(spacing: 6) {
-                    Text("Strings: \(voicing.stringSet.label)")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white.opacity(0.9))
-
-                    HStack(spacing: 8) {
-                        Text(voicing.quality.rawValue)
-                            .font(.system(size: 18, weight: .bold))
-                        Text("•")
-                            .font(.system(size: 18, weight: .bold))
-                        Text(voicing.inversion.rawValue)
-                            .font(.system(size: 18, weight: .bold))
-                    }
-                    .foregroundColor(.white)
-                }
-                .padding(.bottom, 24)
             }
 
             // Bottom-right letter
@@ -112,20 +94,6 @@ struct CardView: View {
                         .foregroundColor(.white)
 
                     Spacer()
-
-                    VStack(spacing: 4) {
-                        Text("Strings: \(voicing.stringSet.label)")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.white.opacity(0.9))
-
-                        Text(voicing.quality.rawValue)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.white)
-
-                        Text(voicing.inversion.rawValue)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.white)
-                    }
 
                     Text(voicing.quality.abbreviation.prefix(1).uppercased())
                         .font(.system(size: 28, weight: .bold))
