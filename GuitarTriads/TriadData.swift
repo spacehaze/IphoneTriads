@@ -55,7 +55,7 @@ struct StringSet: Identifiable, Hashable {
 struct NotePosition {
     let stringIndex: Int   // 0 = lowest string in set, 1 = middle, 2 = highest
     let fretOffset: Int    // relative fret position (0 = lowest fret shown)
-    let label: String      // "R", "3", "5", "b3", "b5"
+    let label: String      // "1", "3", "5", "♭3", "♭5"
     let isRoot: Bool
 }
 
@@ -84,12 +84,12 @@ struct TriadDataProvider {
         case (.major, .root):       return [("1", true),  ("3", false), ("5", false)]
         case (.major, .first):      return [("3", false), ("5", false), ("1", true)]
         case (.major, .second):     return [("5", false), ("1", true),  ("3", false)]
-        case (.minor, .root):       return [("1", true),  ("b3", false), ("5", false)]
-        case (.minor, .first):      return [("b3", false), ("5", false), ("1", true)]
-        case (.minor, .second):     return [("5", false), ("1", true),  ("b3", false)]
-        case (.diminished, .root):  return [("1", true),  ("b3", false), ("b5", false)]
-        case (.diminished, .first): return [("b3", false), ("b5", false), ("1", true)]
-        case (.diminished, .second):return [("b5", false), ("1", true),  ("b3", false)]
+        case (.minor, .root):       return [("1", true),  ("♭3", false), ("5", false)]
+        case (.minor, .first):      return [("♭3", false), ("5", false), ("1", true)]
+        case (.minor, .second):     return [("5", false), ("1", true),  ("♭3", false)]
+        case (.diminished, .root):  return [("1", true),  ("♭3", false), ("♭5", false)]
+        case (.diminished, .first): return [("♭3", false), ("♭5", false), ("1", true)]
+        case (.diminished, .second):return [("♭5", false), ("1", true),  ("♭3", false)]
         }
     }
 
@@ -112,7 +112,7 @@ struct TriadDataProvider {
 
         // Semitone intervals for each note relative to root
         let intervals: [String: Int] = [
-            "1": 0, "3": 4, "b3": 3, "5": 7, "b5": 6
+            "1": 0, "3": 4, "♭3": 3, "5": 7, "♭5": 6
         ]
 
         let labels = noteLabels(quality: quality, inversion: inversion)
