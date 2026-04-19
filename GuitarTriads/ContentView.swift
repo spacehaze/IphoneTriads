@@ -60,40 +60,21 @@ struct ContentView: View {
 struct QualityButton: View {
     let quality: TriadQuality
 
-    private var subtitle: String {
-        switch quality {
-        case .major: return "1 - 3 - 5"
-        case .minor: return "1 - ♭3 - 5"
-        case .diminished: return "1 - ♭3 - ♭5"
-        }
-    }
-
     var body: some View {
         HStack(spacing: 16) {
             Circle()
                 .fill(quality.color)
                 .frame(width: 56, height: 56)
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(quality.rawValue)
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(.primary)
-
-                Text(subtitle)
-                    .font(.system(size: 14, weight: .medium, design: .monospaced))
-                    .foregroundColor(.secondary)
-            }
+            Text(quality.rawValue)
+                .font(.system(size: 22, weight: .bold))
+                .foregroundColor(.primary)
 
             Spacer()
 
-            VStack(spacing: 2) {
-                Text("12")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(quality.color)
-                Text("cards")
-                    .font(.system(size: 12))
-                    .foregroundColor(.secondary)
-            }
+            Text("12")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundColor(quality.color)
 
             Image(systemName: "chevron.right")
                 .font(.system(size: 14, weight: .semibold))
