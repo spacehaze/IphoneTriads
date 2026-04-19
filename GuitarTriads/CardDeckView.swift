@@ -90,8 +90,9 @@ struct CardDeckView: View {
     private var stringSetTabs: some View {
         let stringSets = StringSet.allSets
         let currentSet = voicings[currentIndex].stringSet
+        let circleSize: CGFloat = 52
 
-        return HStack(spacing: 12) {
+        return HStack(spacing: 14) {
             ForEach(stringSets) { set in
                 Button(action: {
                     if let idx = voicings.firstIndex(where: { $0.stringSet.id == set.id }) {
@@ -103,10 +104,9 @@ struct CardDeckView: View {
                     Text(set.label)
                         .font(.system(size: 14, weight: currentSet.id == set.id ? .bold : .medium))
                         .foregroundColor(currentSet.id == set.id ? .white : quality.color)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
+                        .frame(width: circleSize, height: circleSize)
                         .background(
-                            Capsule()
+                            Circle()
                                 .fill(currentSet.id == set.id ? quality.color : quality.color.opacity(0.15))
                         )
                 }
