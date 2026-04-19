@@ -21,8 +21,8 @@ struct CardDeckView: View {
 
                     // String set tabs
                     stringSetTabs
-                        .padding(.top, 24)
-                        .padding(.bottom, 8)
+                        .padding(.top, 48)
+                        .padding(.bottom, 16)
 
                     // Card area with swipe
                     ZStack {
