@@ -60,14 +60,6 @@ struct ContentView: View {
 struct QualityButton: View {
     let quality: TriadQuality
 
-    private var icon: String {
-        switch quality {
-        case .major: return "hand.thumbsup.fill"
-        case .minor: return "hand.thumbsdown.fill"
-        case .diminished: return "circle.dotted"
-        }
-    }
-
     private var subtitle: String {
         switch quality {
         case .major: return "1 - 3 - 5"
@@ -78,15 +70,9 @@ struct QualityButton: View {
 
     var body: some View {
         HStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .fill(quality.color)
-                    .frame(width: 56, height: 56)
-
-                Image(systemName: icon)
-                    .font(.system(size: 24))
-                    .foregroundColor(.white)
-            }
+            Circle()
+                .fill(quality.color)
+                .frame(width: 56, height: 56)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(quality.rawValue)
