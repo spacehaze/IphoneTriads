@@ -90,9 +90,9 @@ struct CardDeckView: View {
     private var stringSetTabs: some View {
         let stringSets = StringSet.allSets
         let currentSet = voicings[currentIndex].stringSet
-        let circleSize: CGFloat = 52
+        let circleSize: CGFloat = 68
 
-        return HStack(spacing: 14) {
+        return HStack(alignment: .center, spacing: 16) {
             ForEach(stringSets) { set in
                 Button(action: {
                     if let idx = voicings.firstIndex(where: { $0.stringSet.id == set.id }) {
@@ -101,17 +101,19 @@ struct CardDeckView: View {
                         }
                     }
                 }) {
-                    Text(set.label)
-                        .font(.system(size: 14, weight: currentSet.id == set.id ? .bold : .medium))
-                        .foregroundColor(currentSet.id == set.id ? .white : quality.color)
-                        .frame(width: circleSize, height: circleSize)
-                        .background(
-                            Circle()
-                                .fill(currentSet.id == set.id ? quality.color : quality.color.opacity(0.15))
-                        )
+                    ZStack {
+                        Circle()
+                            .fill(currentSet.id == set.id ? quality.color : quality.color.opacity(0.15))
+                            .frame(width: circleSize, height: circleSize)
+
+                        Text(set.label)
+                            .font(.system(size: 17, weight: currentSet.id == set.id ? .bold : .medium))
+                            .foregroundColor(currentSet.id == set.id ? .white : quality.color)
+                    }
                 }
             }
         }
+        .frame(maxWidth: .infinity)
     }
 
     private var pageDots: some View {
