@@ -12,6 +12,19 @@ struct FretboardView: View {
         return 6 - guitarString
     }
 
+    // String 1 = thinnest (high E), String 6 = thickest (low E)
+    private func stringWidth(for guitarStringNumber: Int) -> CGFloat {
+        switch guitarStringNumber {
+        case 1: return 1.2
+        case 2: return 1.8
+        case 3: return 2.4
+        case 4: return 3.0
+        case 5: return 3.6
+        case 6: return 4.4
+        default: return 2.0
+        }
+    }
+
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
@@ -34,16 +47,20 @@ struct FretboardView: View {
                     .position(x: width / 2, y: fretSpacing * 0.5)
 
                 // Strings (vertical lines) - all 6
+                // Position 0 = leftmost = string 6 (thickest)
+                // Position 5 = rightmost = string 1 (thinnest)
                 ForEach(0..<totalStrings, id: \.self) { s in
                     let x = stringSpacing * CGFloat(s + 1)
                     let isActive = activePositions.contains(s)
+                    let guitarStringNumber = 6 - s // 6 at leftmost, 1 at rightmost
+                    let baseWidth = stringWidth(for: guitarStringNumber)
                     Path { path in
                         path.move(to: CGPoint(x: x, y: fretSpacing * 0.5))
                         path.addLine(to: CGPoint(x: x, y: fretSpacing * CGFloat(fretCount) + fretSpacing * 0.5))
                     }
                     .stroke(
-                        isActive ? Color.black : Color.black.opacity(0.25),
-                        lineWidth: isActive ? 2.5 : 1.5
+                        isActive ? Color.black : Color.black.opacity(0.35),
+                        lineWidth: baseWidth
                     )
                 }
 
