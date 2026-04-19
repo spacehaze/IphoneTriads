@@ -81,15 +81,15 @@ struct TriadDataProvider {
     // Inversion order: [lowest string, middle string, highest string]
     private static func noteLabels(quality: TriadQuality, inversion: Inversion) -> [(String, Bool)] {
         switch (quality, inversion) {
-        case (.major, .root):       return [("R", true),  ("3", false), ("5", false)]
-        case (.major, .first):      return [("3", false), ("5", false), ("R", true)]
-        case (.major, .second):     return [("5", false), ("R", true),  ("3", false)]
-        case (.minor, .root):       return [("R", true),  ("b3", false), ("5", false)]
-        case (.minor, .first):      return [("b3", false), ("5", false), ("R", true)]
-        case (.minor, .second):     return [("5", false), ("R", true),  ("b3", false)]
-        case (.diminished, .root):  return [("R", true),  ("b3", false), ("b5", false)]
-        case (.diminished, .first): return [("b3", false), ("b5", false), ("R", true)]
-        case (.diminished, .second):return [("b5", false), ("R", true),  ("b3", false)]
+        case (.major, .root):       return [("1", true),  ("3", false), ("5", false)]
+        case (.major, .first):      return [("3", false), ("5", false), ("1", true)]
+        case (.major, .second):     return [("5", false), ("1", true),  ("3", false)]
+        case (.minor, .root):       return [("1", true),  ("b3", false), ("5", false)]
+        case (.minor, .first):      return [("b3", false), ("5", false), ("1", true)]
+        case (.minor, .second):     return [("5", false), ("1", true),  ("b3", false)]
+        case (.diminished, .root):  return [("1", true),  ("b3", false), ("b5", false)]
+        case (.diminished, .first): return [("b3", false), ("b5", false), ("1", true)]
+        case (.diminished, .second):return [("b5", false), ("1", true),  ("b3", false)]
         }
     }
 

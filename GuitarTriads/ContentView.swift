@@ -70,9 +70,9 @@ struct QualityButton: View {
 
     private var subtitle: String {
         switch quality {
-        case .major: return "R - 3 - 5"
-        case .minor: return "R - b3 - 5"
-        case .diminished: return "R - b3 - b5"
+        case .major: return "1 - 3 - 5"
+        case .minor: return "1 - b3 - 5"
+        case .diminished: return "1 - b3 - b5"
         }
     }
 
