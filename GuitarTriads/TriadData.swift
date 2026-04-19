@@ -9,9 +9,9 @@ enum TriadQuality: String, CaseIterable, Identifiable {
 
     var color: Color {
         switch self {
-        case .major: return Color(red: 0.91, green: 0.30, blue: 0.24)
-        case .minor: return Color(red: 0.20, green: 0.40, blue: 0.85)
-        case .diminished: return Color(red: 0.55, green: 0.24, blue: 0.70)
+        case .major: return Color(red: 250/255, green: 172/255, blue: 55/255)
+        case .minor: return Color(red: 57/255, green: 170/255, blue: 212/255)
+        case .diminished: return Color(red: 230/255, green: 69/255, blue: 213/255)
         }
     }
 
