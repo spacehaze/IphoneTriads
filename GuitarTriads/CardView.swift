@@ -30,37 +30,25 @@ struct CardView: View {
                 .fill(voicing.quality.color)
                 .shadow(color: .black.opacity(0.3), radius: 10, y: 5)
 
-            VStack(spacing: 0) {
-                // Header
-                HStack {
-                    Text(voicing.inversion.shortLabel)
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundColor(.black.opacity(0.7))
-                    Spacer()
-                }
-                .padding(.horizontal, 24)
+            // Fretboard — centered in card
+            FretboardView(voicing: voicing, cardColor: voicing.quality.color)
+                .frame(width: cardWidth * 0.82, height: cardHeight * 0.58)
+
+            // Top-left inversion label
+            Text(voicing.inversion.shortLabel)
+                .font(.system(size: 36, weight: .bold))
+                .foregroundColor(.black.opacity(0.7))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.leading, 24)
                 .padding(.top, 20)
 
-                // Fretboard
-                FretboardView(voicing: voicing, cardColor: voicing.quality.color)
-                    .frame(width: cardWidth * 0.82, height: cardHeight * 0.50)
-                    .padding(.top, 12)
-
-                Spacer()
-            }
-
-            // Bottom-right letter
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Text(voicing.quality.abbreviation.prefix(1).uppercased())
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundColor(.black.opacity(0.7))
-                        .padding(.trailing, 24)
-                        .padding(.bottom, 60)
-                }
-            }
+            // Bottom-right quality letter
+            Text(voicing.quality.abbreviation.prefix(1).uppercased())
+                .font(.system(size: 36, weight: .bold))
+                .foregroundColor(.black.opacity(0.7))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .padding(.trailing, 24)
+                .padding(.bottom, 24)
         }
         .frame(width: cardWidth, height: cardHeight)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -76,27 +64,25 @@ struct CardView: View {
                 .fill(voicing.quality.color)
                 .shadow(color: .black.opacity(0.3), radius: 10, y: 5)
 
-            HStack(spacing: 0) {
-                // Left side: info
-                VStack(spacing: 12) {
-                    Text(voicing.inversion.shortLabel)
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(.black.opacity(0.7))
+            // Fretboard — centered in card
+            FretboardView(voicing: voicing, cardColor: voicing.quality.color)
+                .frame(width: cardWidth * 0.50, height: cardHeight * 0.80)
 
-                    Spacer()
+            // Top-left inversion label
+            Text(voicing.inversion.shortLabel)
+                .font(.system(size: 32, weight: .bold))
+                .foregroundColor(.black.opacity(0.7))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.leading, 24)
+                .padding(.top, 20)
 
-                    Text(voicing.quality.abbreviation.prefix(1).uppercased())
-                        .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(.black.opacity(0.7))
-                }
-                .frame(width: cardWidth * 0.35)
-                .padding(.vertical, 20)
-
-                // Right side: fretboard
-                FretboardView(voicing: voicing, cardColor: voicing.quality.color)
-                    .frame(width: cardWidth * 0.55, height: cardHeight * 0.75)
-                    .padding(.trailing, 16)
-            }
+            // Bottom-right quality letter
+            Text(voicing.quality.abbreviation.prefix(1).uppercased())
+                .font(.system(size: 32, weight: .bold))
+                .foregroundColor(.black.opacity(0.7))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .padding(.trailing, 24)
+                .padding(.bottom, 20)
         }
         .frame(width: cardWidth, height: cardHeight)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
