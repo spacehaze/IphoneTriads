@@ -4,45 +4,47 @@ struct FretboardView: View {
     let voicing: TriadVoicing
     let cardColor: Color
 
-    private let stringCount = 3
+    private let totalStrings = 6
     private let nutThickness: CGFloat = 6
+
+    private func displayPosition(for notePosition: NotePosition) -> Int {
+        let guitarString = voicing.stringSet.strings[notePosition.stringIndex]
+        return 6 - guitarString
+    }
 
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
             let height = geo.size.height
             let fretCount = voicing.fretSpan + 1
-            let stringSpacing = width / CGFloat(stringCount + 1)
+            let stringSpacing = width / CGFloat(totalStrings + 1)
             let fretSpacing = height / CGFloat(fretCount + 1)
-            let dotRadius = min(stringSpacing, fretSpacing) * 0.32
+            let dotRadius = min(stringSpacing, fretSpacing) * 0.34
+
+            let activePositions = Set(voicing.stringSet.strings.map { 6 - $0 })
 
             ZStack {
-                // Fretboard background
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.white.opacity(0.15))
-                    .frame(
-                        width: stringSpacing * CGFloat(stringCount - 1) + 20,
-                        height: fretSpacing * CGFloat(fretCount) + 10
-                    )
-                    .position(x: width / 2, y: fretSpacing * 0.5 + fretSpacing * CGFloat(fretCount) / 2)
-
                 // Nut (top bar)
                 Rectangle()
                     .fill(Color.black)
                     .frame(
-                        width: stringSpacing * CGFloat(stringCount - 1) + 16,
+                        width: stringSpacing * CGFloat(totalStrings - 1) + 16,
                         height: nutThickness
                     )
                     .position(x: width / 2, y: fretSpacing * 0.5)
 
-                // Strings (vertical lines)
-                ForEach(0..<stringCount, id: \.self) { s in
+                // Strings (vertical lines) - all 6
+                ForEach(0..<totalStrings, id: \.self) { s in
                     let x = stringSpacing * CGFloat(s + 1)
+                    let isActive = activePositions.contains(s)
                     Path { path in
                         path.move(to: CGPoint(x: x, y: fretSpacing * 0.5))
                         path.addLine(to: CGPoint(x: x, y: fretSpacing * CGFloat(fretCount) + fretSpacing * 0.5))
                     }
-                    .stroke(Color.black, lineWidth: 2.5)
+                    .stroke(
+                        isActive ? Color.black : Color.black.opacity(0.25),
+                        lineWidth: isActive ? 2.5 : 1.5
+                    )
                 }
 
                 // Frets (horizontal lines)
@@ -50,83 +52,36 @@ struct FretboardView: View {
                     let y = fretSpacing * CGFloat(f) + fretSpacing * 0.5
                     Path { path in
                         let leftX = stringSpacing - 8
-                        let rightX = stringSpacing * CGFloat(stringCount) + 8
+                        let rightX = stringSpacing * CGFloat(totalStrings) + 8
                         path.move(to: CGPoint(x: leftX, y: y))
                         path.addLine(to: CGPoint(x: rightX, y: y))
                     }
                     .stroke(Color.black, lineWidth: f == 0 ? 4 : 2)
                 }
 
-                // Note dots
+                // X marks on muted strings (above nut)
+                ForEach(0..<totalStrings, id: \.self) { s in
+                    if !activePositions.contains(s) {
+                        let x = stringSpacing * CGFloat(s + 1)
+                        let y = fretSpacing * 0.25
+                        Text("x")
+                            .font(.system(size: dotRadius * 0.9, weight: .bold))
+                            .foregroundColor(.black.opacity(0.5))
+                            .position(x: x, y: y)
+                    }
+                }
+
+                // Note dots on correct strings
                 ForEach(0..<voicing.positions.count, id: \.self) { i in
                     let pos = voicing.positions[i]
-                    let x = stringSpacing * CGFloat(pos.stringIndex + 1)
+                    let displayPos = displayPosition(for: pos)
+                    let x = stringSpacing * CGFloat(displayPos + 1)
                     let y = fretSpacing * CGFloat(pos.fretOffset) + fretSpacing
                     let isRoot = pos.isRoot
 
                     ZStack {
                         Circle()
                             .fill(isRoot ? Color(red: 1.0, green: 0.25, blue: 0.35) : Color.black)
-                            .frame(width: dotRadius * 2, height: dotRadius * 2)
-
-                        Text(pos.label)
-                            .font(.system(size: dotRadius * 1.1, weight: .bold))
-                            .foregroundColor(.white)
-                    }
-                    .position(x: x, y: y)
-                }
-            }
-        }
-    }
-}
-
-struct FretboardLightView: View {
-    let voicing: TriadVoicing
-
-    private let stringCount = 3
-
-    var body: some View {
-        GeometryReader { geo in
-            let width = geo.size.width
-            let height = geo.size.height
-            let fretCount = voicing.fretSpan + 1
-            let stringSpacing = width / CGFloat(stringCount + 1)
-            let fretSpacing = height / CGFloat(fretCount + 1)
-            let dotRadius = min(stringSpacing, fretSpacing) * 0.35
-
-            ZStack {
-                // Strings (vertical lines)
-                ForEach(0..<stringCount, id: \.self) { s in
-                    let x = stringSpacing * CGFloat(s + 1)
-                    Path { path in
-                        path.move(to: CGPoint(x: x, y: fretSpacing * 0.5))
-                        path.addLine(to: CGPoint(x: x, y: fretSpacing * CGFloat(fretCount) + fretSpacing * 0.5))
-                    }
-                    .stroke(Color.black, lineWidth: 2.5)
-                }
-
-                // Frets (horizontal lines)
-                ForEach(0...fretCount, id: \.self) { f in
-                    let y = fretSpacing * CGFloat(f) + fretSpacing * 0.5
-                    Path { path in
-                        let leftX = stringSpacing - 8
-                        let rightX = stringSpacing * CGFloat(stringCount) + 8
-                        path.move(to: CGPoint(x: leftX, y: y))
-                        path.addLine(to: CGPoint(x: rightX, y: y))
-                    }
-                    .stroke(Color.black.opacity(0.4), lineWidth: f == 0 ? 4 : 1.5)
-                }
-
-                // Note dots
-                ForEach(0..<voicing.positions.count, id: \.self) { i in
-                    let pos = voicing.positions[i]
-                    let x = stringSpacing * CGFloat(pos.stringIndex + 1)
-                    let y = fretSpacing * CGFloat(pos.fretOffset) + fretSpacing
-                    let isRoot = pos.isRoot
-
-                    ZStack {
-                        Circle()
-                            .fill(isRoot ? Color(red: 1.0, green: 0.2, blue: 0.35) : Color.black)
                             .frame(width: dotRadius * 2, height: dotRadius * 2)
 
                         Text(pos.label)

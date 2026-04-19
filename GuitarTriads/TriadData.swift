@@ -44,12 +44,12 @@ struct StringSet: Identifiable, Hashable {
 
     var label: String { id }
 
-    static let set321 = StringSet(id: "321", strings: [3, 2, 1])
-    static let set432 = StringSet(id: "432", strings: [4, 3, 2])
-    static let set543 = StringSet(id: "543", strings: [5, 4, 3])
-    static let set654 = StringSet(id: "654", strings: [6, 5, 4])
+    static let set123 = StringSet(id: "123", strings: [3, 2, 1])
+    static let set234 = StringSet(id: "234", strings: [4, 3, 2])
+    static let set345 = StringSet(id: "345", strings: [5, 4, 3])
+    static let set456 = StringSet(id: "456", strings: [6, 5, 4])
 
-    static let allSets: [StringSet] = [.set321, .set432, .set543, .set654]
+    static let allSets: [StringSet] = [.set123, .set234, .set345, .set456]
 }
 
 struct NotePosition {

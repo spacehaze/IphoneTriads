@@ -49,7 +49,7 @@ struct CardView: View {
 
                 // Fretboard
                 FretboardView(voicing: voicing, cardColor: voicing.quality.color)
-                    .frame(width: cardWidth * 0.55, height: cardHeight * 0.52)
+                    .frame(width: cardWidth * 0.82, height: cardHeight * 0.50)
                     .padding(.top, 12)
 
                 Spacer()
@@ -136,8 +136,8 @@ struct CardView: View {
 
                 // Right side: fretboard
                 FretboardView(voicing: voicing, cardColor: voicing.quality.color)
-                    .frame(width: cardWidth * 0.40, height: cardHeight * 0.75)
-                    .padding(.trailing, 20)
+                    .frame(width: cardWidth * 0.55, height: cardHeight * 0.75)
+                    .padding(.trailing, 16)
             }
         }
         .frame(width: cardWidth, height: cardHeight)
