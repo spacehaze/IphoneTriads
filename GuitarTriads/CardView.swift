@@ -41,12 +41,6 @@ struct CardView: View {
                 .padding(.horizontal, 24)
                 .padding(.top, 20)
 
-                // Title
-                Text(voicing.title)
-                    .font(.system(size: 22, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.top, 4)
-
                 // Fretboard
                 FretboardView(voicing: voicing, cardColor: voicing.quality.color)
                     .frame(width: cardWidth * 0.82, height: cardHeight * 0.50)
@@ -88,10 +82,6 @@ struct CardView: View {
                     Text(voicing.inversion.shortLabel)
                         .font(.system(size: 32, weight: .bold))
                         .foregroundColor(.black.opacity(0.7))
-
-                    Text(voicing.title)
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.white)
 
                     Spacer()
 
