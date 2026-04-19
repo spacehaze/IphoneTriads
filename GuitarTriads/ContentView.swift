@@ -45,7 +45,7 @@ struct ContentView: View {
                         Text("4 string sets • 3 inversions each")
                             .font(.system(size: 13))
                             .foregroundColor(.secondary)
-                        Text("12 cards per group • 36 total")
+                        Text("12 triads per type • 36 total")
                             .font(.system(size: 13))
                             .foregroundColor(.secondary)
                     }
