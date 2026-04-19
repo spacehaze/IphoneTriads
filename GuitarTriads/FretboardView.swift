@@ -51,17 +51,13 @@ struct FretboardView: View {
                 // Position 5 = rightmost = string 1 (thinnest)
                 ForEach(0..<totalStrings, id: \.self) { s in
                     let x = stringSpacing * CGFloat(s + 1)
-                    let isActive = activePositions.contains(s)
                     let guitarStringNumber = 6 - s // 6 at leftmost, 1 at rightmost
                     let baseWidth = stringWidth(for: guitarStringNumber)
                     Path { path in
                         path.move(to: CGPoint(x: x, y: fretSpacing * 0.5))
                         path.addLine(to: CGPoint(x: x, y: fretSpacing * CGFloat(fretCount) + fretSpacing * 0.5))
                     }
-                    .stroke(
-                        isActive ? Color.black : Color.black.opacity(0.35),
-                        lineWidth: baseWidth
-                    )
+                    .stroke(Color.black, lineWidth: baseWidth)
                 }
 
                 // Frets (horizontal lines)
