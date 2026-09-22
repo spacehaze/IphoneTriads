@@ -122,12 +122,19 @@ struct CardDeckView: View {
         let currentSetVoicings = voicings.filter { $0.stringSet.id == currentSet.id }
         let indexInSet = currentSetVoicings.firstIndex(where: { $0.id == voicings[currentIndex].id }) ?? 0
         let labels = Inversion.allCases.map { $0.shortLabel }
+        let circleSize: CGFloat = 44
 
-        return HStack(spacing: 16) {
+        return HStack(spacing: 20) {
             ForEach(0..<currentSetVoicings.count, id: \.self) { i in
-                Text(labels[i])
-                    .font(.system(size: 18, weight: i == indexInSet ? .bold : .medium))
-                    .foregroundColor(i == indexInSet ? quality.color : quality.color.opacity(0.35))
+                ZStack {
+                    Circle()
+                        .fill(i == indexInSet ? quality.color : quality.color.opacity(0.15))
+                        .frame(width: circleSize, height: circleSize)
+
+                    Text(labels[i])
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(i == indexInSet ? .white : quality.color)
+                }
             }
         }
     }
